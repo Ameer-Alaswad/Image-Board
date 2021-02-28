@@ -1,10 +1,22 @@
 <!doctype html>
 <html>
 <head>
-    <title></title>
+    <link rel="stylesheet" href="/style.css">
+    <title>imageboard</title>
 </head>
 <body>
+    <div id="main">
+        <!-- <h2>i really like {{name}}</h2>
+        <h2>i really like {{name.toUpperCase()}}</h2> -->
+        <div class="container">
+                <div id="image-card" v-for="{title, url} in images">
+                    <img  :src="url" alt="">
+                       <p>{{title}}</p>
+                   </div>
+        </div>
+    </div>
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
