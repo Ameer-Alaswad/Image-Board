@@ -6,12 +6,19 @@
 </head>
 <body>
     <div id="main">
-        <!-- <h2>i really like {{name}}</h2>
-        <h2>i really like {{name.toUpperCase()}}</h2> -->
+    <form>
+            <input v-model="title" type="text" name="title" placeholder="title">
+            <input v-model="description" type="text" name="description" placeholder="description">
+            <input v-model="username" type="text" name="username" placeholder="username">
+            <input @change="handleChange" type="file" name="file" accept="image/*">
+            <button class @click.prevent="handleClick">Submit</button>
+        </form>
         <div class="container">
                 <div id="image-card" v-for="{title, url} in images">
                     <img  :src="url" alt="">
-                       <p>{{title}}</p>
+                    <div id="card-text-container">
+                        <p>{{title}}</p>
+                    </div>
                    </div>
         </div>
     </div>
