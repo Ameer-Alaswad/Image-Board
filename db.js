@@ -6,8 +6,9 @@ const db = spicedPg(
 
 module.exports.getAllImages = () => {
     const q = `
-            SELECT * 
-            FROM images;
+    SELECT * FROM images
+    ORDER BY id ASC
+    LIMIT 9;
             `;
     return db.query(q);
 };
@@ -18,5 +19,13 @@ module.exports.addImage = (title, username, description, url) => {
     RETURNING *
     `;
     const params = [title, username, description, url];
+    return db.query(q, params);
+};
+module.exports.getImage = (imageId) => {
+    const q = `
+    SELECT * FROM images
+     WHERE id=$1
+    `;
+    const params = [imageId];
     return db.query(q, params);
 };

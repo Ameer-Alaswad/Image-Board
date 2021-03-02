@@ -14,14 +14,27 @@
             <button class @click.prevent="handleClick">Submit</button>
         </form>
         <div class="container">
-                <div id="image-card" v-for="{title, url} in images">
-                    <img  :src="url" alt="">
+                <div id="image-card" v-for="{title, url, id} in images" >
+                    <img  :src="url" :alt="title" @click="clickedImage" :id="id">
                     <div id="card-text-container">
                         <p>{{title}}</p>
                     </div>
                    </div>
         </div>
+        <first-component @close="closeComponent" v-if="imageId" :image-id="imageId"></first-component>
     </div>
+    <script id ="first-component" type="text/x-template">
+        <div class="overlay">
+            <div class="image-popup-container">
+                <img :src="image.url" alt="">
+                <button @click="closeImage">x</button>
+             <h1>{{image.title}}</h1>
+             <h1>{{image.description}}</h1>
+             <h1>{{image.username}}</h1>
+            </div>
+        </div>
+    
+</script>
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>

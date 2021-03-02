@@ -59,5 +59,14 @@ app.post('/upload', uploader.single('file'), s3.upload, function (req, res) {
         });
     }
 });
+/////////////////////////////////
+///get image by id
+app.get('/image/:id', (req, res) => {
+    console.log('req.params', req.params);
+    let { id } = req.params;
+    db.getImage(id).then(({ rows }) => {
+        res.json(rows);
+    });
+});
 
 app.listen(8080, () => console.log('image board running'));

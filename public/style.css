@@ -71,3 +71,22 @@ p {
     border: none;
     outline: none;
 }
+.image-popup-container {
+    background-color: aqua;
+    height: 80vh;
+    z-index: 2;
+    position: absolute;
+    top: 10%;
+    left: 14%;
+    width: 70vw;
+}
+
+.overlay {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.596);
+}
