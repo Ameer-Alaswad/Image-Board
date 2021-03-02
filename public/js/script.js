@@ -5,8 +5,8 @@ new Vue({
         seen: true,
         images: [],
         title: '',
-        description: '',
         username: '',
+        description: '',
         file: null,
     },
     mounted: function () {
@@ -31,6 +31,7 @@ new Vue({
     methods: {
         handleClick: function (e) {
             // e.preventDefault()
+            var self = this;
             var formData = new FormData();
             formData.append('title', this.title);
             formData.append('description', this.description);
@@ -43,7 +44,12 @@ new Vue({
             axios
                 .post('/upload', formData)
                 .then(function (response) {
-                    console.log('response from post req: ', response);
+                    console.log(
+                        'response from post req: ',
+                        response.data.image
+                    );
+                    self.images.unshift(response.data.image);
+                    console.log('self.images', self.images);
                 })
                 .catch(function (err) {
                     console.log('error from post req', err);

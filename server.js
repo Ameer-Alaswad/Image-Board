@@ -4,8 +4,9 @@ const app = express();
 const multer = require('multer');
 const uidSafe = require('uid-safe');
 const path = require('path');
+const s3 = require('./s3.js');
+const { s3Url } = require('./config.json');
 
-app.use(express.static('public'));
 //////////////////////////
 //// configure multer
 const diskStorage = multer.diskStorage({
@@ -26,6 +27,8 @@ const uploader = multer({
     },
 });
 ///////////////////////////
+app.use(express.static('public'));
+
 //////////////////
 app.get('/images', (req, res) => {
     db.getAllImages()
@@ -36,12 +39,20 @@ app.get('/images', (req, res) => {
 });
 //////////////////////////////
 ////////
-app.post('/upload', uploader.single('file'), function (req, res) {
+app.post('/upload', uploader.single('file'), s3.upload, function (req, res) {
+    const { title, username, description } = req.body;
+    const { filename } = req.file;
     // If nothing went wrong the file is already in the uploads directory
     if (req.file) {
-        res.json({
-            success: true,
-        });
+        db.addImage(title, username, description, s3Url + filename).then(
+            ({ rows }) => {
+                console.log('rows', rows[0]);
+                res.json({
+                    success: true,
+                    image: rows[0],
+                });
+            }
+        );
     } else {
         res.json({
             success: false,
