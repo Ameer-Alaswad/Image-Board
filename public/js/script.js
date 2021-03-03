@@ -12,36 +12,41 @@ Vue.component('comments-component', {
     props: ['imageId'],
     mounted: function () {
         var self = this;
-        console.log('this.id', self.imageId);
         axios
             .get('/comments/' + self.imageId)
             .then((response) => {
-                console.log('response.data', response.data);
-                console.log('response', response.data);
                 self.comments = response.data;
-                console.log('comments', self.comments);
             })
             .catch((err) => console.log('err in mounted get comments ', err));
     },
     methods: {
         postComment: function (e) {
             var self = this;
-            console.log('comment', self.comment);
-            console.log('self.isername', self.username);
-            console.log('self.imageid', self.imageId);
             var commentInfos = {
                 comment: self.comment,
                 username: self.username,
                 image_id: self.imageId,
             };
-            console.log('commentInfos', 'ameer');
             axios.post('/comment', commentInfos).then((response) => {
-                console.log('response', response.data.comment);
                 self.comments.unshift(response.data.comment);
                 self.comment = '';
                 self.username = '';
-                console.log('self.comments', self.comments);
             });
+        },
+    },
+    watch: {
+        imageId: function () {
+            var self = this;
+            console.log('this.id', self.imageId);
+            axios
+                .get('/comments/' + self.imageId)
+                .then((response) => {
+                    console.log('response.data', response.data);
+                    self.comments = response.data;
+                })
+                .catch((err) => {
+                    console.log('err in watch mounted get comments ', err);
+                });
         },
     },
 });
@@ -56,17 +61,46 @@ Vue.component('first-component', {
     props: ['imageId'],
     mounted: function () {
         var self = this;
-        console.log('this.id', self.imageId);
-        axios.get('/image/' + self.imageId).then((response) => {
-            self.image = response.data[0];
-        });
+        axios
+            .get('/image/' + self.imageId)
+            .then((response) => {
+                if (response.data.length == 0) {
+                    closeImage();
+                }
+                self.image = response.data[0];
+            })
+
+            .catch((err) => {
+                console.log('2aya shi');
+                console.log('err in get image mounted', err);
+            });
     },
     methods: {
         closeImage: function () {
-            console.log(
-                'hey component here, I want the main vue instance to know it should do sth!'
-            );
             this.$emit('close');
+            location.hash = '';
+            self.imageId = null;
+            // gives an error  Avoid mutating a prop directly!
+        },
+    },
+    watch: {
+        imageId: function () {
+            var self = this;
+            axios
+                .get('/image/' + self.imageId)
+                .then((response) => {
+                    self.image = response.data[0];
+
+                    if (response.data.length == 0) {
+                        self.$emit('close');
+                        location.hash = '';
+                        self.imageId = null;
+                        // closeImage();
+                    }
+                })
+                .catch((err) => {
+                    console.log('err in watch image get', err);
+                });
         },
     },
 });
@@ -79,7 +113,7 @@ new Vue({
         username: '',
         description: '',
         file: null,
-        imageId: null,
+        imageId: location.hash.slice(1),
         thereAreImages: true,
     },
     mounted: function () {
@@ -89,24 +123,19 @@ new Vue({
             .get('/images')
             .then(function (response) {
                 self.images = response.data;
-                // let map = response.data.map((id) => {
-                //     return id.id;
-                // });
-                // console.log('map', map);
-                // let lowestId = Math.min.apply(null, map);
-                // console.log('lowestId', lowestId);
-                // axios.get('/render', lowestId)
             })
             .catch(function (err) {
                 console.log('error in axios', err);
             });
+
+        window.addEventListener('hashchange', function () {
+            self.imageId = location.hash.slice(1);
+        });
     },
     methods: {
         clickedImage: function (e) {
             var self = this;
-            console.log('e.target', e.target.id);
             self.imageId = e.target.id;
-            console.log('image', self.imageId);
         },
 
         handleClick: function (e) {

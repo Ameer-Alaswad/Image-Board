@@ -22,41 +22,63 @@
         </form>
         <div class="container">
                 <div id="image-card" v-for="{title, url, id} in images" >
-                    <img  :src="url" :alt="title" @click="clickedImage" :id="id">
-                    <div id="card-text-container">
-                        <p>{{title}}</p>
+                   <a :href="'#'+id">
+                    <div>
+                        <img id="container-image"  :src="url" :alt="title" :id="id">
+                        <div id="card-text-container">
+                            <p class="titles">{{title}}</p>
+                        </div>
                     </div>
+                   </a>
                 </div>
             </div>
             <first-component @close="closeComponent" v-if="imageId" :image-id="imageId"></first-component>
            <div v-if="thereAreImages" id="more-image-button-div"><button @click="getMoreImages" id="more-images">more</button></div>   
     </div>
     <script id ="first-component" type="text/x-template">
-        <div class="overlay">
+        <div class="overlay" >
             <div class="image-popup-container">
-                <img :src="image.url" alt="">
-                <button @click="closeImage">x</button>
-             <h1>{{image.title}}</h1>
-             <h1>{{image.description}}</h1>
-             <h1>{{image.username}}</h1>
-            <comments-component v-if="imageId" :image-id="imageId"></comments-component>
+                <div class='flex img-content'>
+
+                    <button class='x-btn' @click="closeImage">x</button>
+                    
+                        <div class='flex'>
+                    <img :src="image.url" alt="" class="comments-card-image">
+
+                      
+
+                 <h3>{{image.title}}</h3>
+                 <h3>{{image.description}}</h3>
+                 <h3>{{image.username}}</h3>
+                    </div>
+<div class='comments-container'>
+
+            <comments-component  v-if="imageId" :image-id="imageId"></comments-component>
+</div>
+
+
+
+                </div>
+              
+                
 
             </div>
         </div>
     
 </script>
 <script id ="comments-component" type="text/x-template">
- <div class="comments-container">
+ <div >
 <form action="POST">
     <input v-model="username" type="text" name="username" placeholder="username">
     <input v-model="comment" type="text" name="comment" placeholder="comment">
-    <button @click.prevent="postComment">submit</button>
+    <button class="submit-comments" @click.prevent="postComment">submit</button>
 </form>
-<div v-for="{comment,username} in comments" class="display-comments">
-<h3>{{username}}</h3>
+<div v-for="{created_at,comment,username} in comments" class="display-comments">
+<p>{{username}}: </p>
 <!-- <div class="comments-show"> -->
 <p>{{comment}}</p>    
 <!-- </div> -->
+<p id="comment-date">{{created_at.slice(0, 10)}} {{created_at.slice(11, 16)}}</p>
 </div>
  </div>
 </script>
