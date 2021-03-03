@@ -7,7 +7,7 @@ const db = spicedPg(
 module.exports.getAllImages = () => {
     const q = `
     SELECT * FROM images
-    ORDER BY id ASC
+    ORDER BY id DESC
     LIMIT 9;
             `;
     return db.query(q);

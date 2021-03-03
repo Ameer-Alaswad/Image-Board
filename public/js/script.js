@@ -1,3 +1,40 @@
+// const { SimpleDB } = require('aws-sdk');
+
+Vue.component('comments-component', {
+    template: '#comments-component',
+    data: function () {
+        return {
+            comments: [],
+            username: '',
+            comment: '',
+        };
+    },
+    props: ['imageId'],
+    mounted: function () {
+        var self = this;
+        console.log('this.id', self.imageId);
+        // axios.get('/comments/' + self.imageId).then((response) => {
+        //     self.image = response.data[0];
+        // });
+    },
+    methods: {
+        postComment: function (e) {
+            var self = this;
+            console.log('comment', self.comment);
+            console.log('self.isername', self.username);
+            self.imageId = e.target.id;
+
+            var commentInfos = {
+                comment: self.comment,
+                username: self.username,
+                image_id: self.imageId,
+            };
+            console.log('commentInfos', 'ameer');
+            axios.post('/comment', {});
+        },
+    },
+});
+
 Vue.component('first-component', {
     template: '#first-component',
     data: function () {

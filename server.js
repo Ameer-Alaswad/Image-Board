@@ -82,4 +82,13 @@ app.get('/more/:lowestId', (req, res) => {
         })
         .catch((err) => console.log('err in more lowestID', err));
 });
+///////////////////////////////////////
+//// get coments by imageID
+app.get('/comments/:imageId', (req, res) => {});
+//////////////////////////////////
+/// add coment post
+app.post('/comment', (req, res) => {
+    var body = req.body;
+    console.log('body', body);
+});
 app.listen(8080, () => console.log('image board running'));

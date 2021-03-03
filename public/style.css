@@ -1,11 +1,14 @@
 body {
     margin: 0;
+    font-family: 'Potta One', cursive;
+    background-color: brown;
 }
 img {
     width: 600px;
     height: 350px;
     /* margin: 10px 10px; */
     margin-bottom: 0;
+    /* height: 100%; */
 }
 .container {
     /* min-width: 2355px; */
@@ -40,7 +43,10 @@ p {
 }
 
 #card-text-container {
+    background-color: white;
     width: 600px;
+    height: 50px;
+    margin-top: 0;
 }
 
 .upload-image-button {
@@ -103,4 +109,86 @@ p {
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+.comments-show {
+    background-color: brown;
+    width: 600px;
+    height: 300px;
+    z-index: 4;
+}
+
+.title {
+    margin: 30px auto;
+    text-align: center;
+    font-size: 60px;
+}
+.form-container {
+    background-color: bisque;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    height: 120px;
+}
+
+input {
+    padding: 6px;
+    font-size: 17px;
+    border-width: 3px;
+    border-color: #cccccc;
+    background-color: #ffffff;
+    color: #000000;
+    border-style: solid;
+    border-radius: 0px;
+    box-shadow: -1px -2px 11px rgba(66, 66, 66, 0.9);
+    text-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
+    margin: 7px;
+}
+input:focus {
+    outline: none;
+}
+
+.submit-image {
+    background: #08121c;
+    background-image: -webkit-linear-gradient(top, #08121c, #357ae9);
+    background-image: -moz-linear-gradient(top, #08121c, #357ae9);
+    background-image: -ms-linear-gradient(top, #08121c, #357ae9);
+    background-image: -o-linear-gradient(top, #08121c, #357ae9);
+    background-image: -webkit-gradient(to bottom, #08121c, #357ae9);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    color: #ffffff;
+    font-family: Georgia;
+    font-size: 20px;
+    font-weight: 200;
+    width: 120px;
+    padding: 7px;
+    -webkit-box-shadow: 1px 1px 20px 0 #000000;
+    -moz-box-shadow: 1px 1px 20px 0 #000000;
+    box-shadow: 1px 1px 20px 0 #000000;
+    text-shadow: 1px 1px 20px #000000;
+    border: solid #337fed 3px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+}
+
+.submit-image:hover {
+    border: solid #337fed 1px;
+    background: #1e62d0;
+    background-image: -webkit-linear-gradient(top, #1e62d0, #3d94f6);
+    background-image: -moz-linear-gradient(top, #1e62d0, #3d94f6);
+    background-image: -ms-linear-gradient(top, #1e62d0, #3d94f6);
+    background-image: -o-linear-gradient(top, #1e62d0, #3d94f6);
+    background-image: -webkit-gradient(to bottom, #1e62d0, #3d94f6);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    text-decoration: none;
+}
+#choose-file {
 }

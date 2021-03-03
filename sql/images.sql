@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS images;
-DROP TABLE IF EXISTS coments;
+DROP TABLE IF EXISTS comments;
 
 CREATE TABLE images
 (
