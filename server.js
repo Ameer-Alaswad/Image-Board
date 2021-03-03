@@ -88,9 +88,11 @@ app.get('/more/:lowestId', (req, res) => {
 app.get('/comments/:imageId', (req, res) => {
     let { imageId } = req.params;
     console.log('id', imageId);
-    db.getComments(imageId).then(({ rows }) => {
-        res.json(rows);
-    });
+    db.getComments(imageId)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((err) => console.log('err in comment get', err));
 });
 //////////////////////////////////
 /// add coment post
