@@ -72,3 +72,20 @@ module.exports.getMoreImages = (id) => {
     const params = [id];
     return db.query(q, params);
 };
+module.exports.addComment = (username, comment, image_id) => {
+    const q = `
+    INSERT INTO comments (username, comment, image_id)
+    VALUES ($1, $2, $3)
+    RETURNING *
+    `;
+    const params = [username, comment, image_id];
+    return db.query(q, params);
+};
+module.exports.getComments = (imageId) => {
+    const q = `
+    SELECT * FROM comments
+     WHERE id=$1
+    `;
+    const params = [imageId];
+    return db.query(q, params);
+};

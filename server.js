@@ -28,6 +28,7 @@ const uploader = multer({
 });
 ///////////////////////////
 app.use(express.static('public'));
+app.use(express.json());
 
 //////////////////
 app.get('/images', (req, res) => {
@@ -84,11 +85,22 @@ app.get('/more/:lowestId', (req, res) => {
 });
 ///////////////////////////////////////
 //// get coments by imageID
-app.get('/comments/:imageId', (req, res) => {});
+app.get('/comments/:imageId', (req, res) => {
+    let { imageId } = req.params;
+    console.log('id', imageId);
+    db.getComments(imageId).then(({ rows }) => {
+        res.json(rows[0]);
+    });
+});
 //////////////////////////////////
 /// add coment post
 app.post('/comment', (req, res) => {
-    var body = req.body;
-    console.log('body', body);
+    var { comment, username, image_id } = req.body;
+    db.addComment(username, comment, image_id).then(({ rows }) => {
+        res.json({
+            success: true,
+            comment: rows[0],
+        }).catch((err) => console.log('err in comment post', err));
+    });
 });
 app.listen(8080, () => console.log('image board running'));

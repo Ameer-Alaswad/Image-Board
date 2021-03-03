@@ -13,24 +13,33 @@ Vue.component('comments-component', {
     mounted: function () {
         var self = this;
         console.log('this.id', self.imageId);
-        // axios.get('/comments/' + self.imageId).then((response) => {
-        //     self.image = response.data[0];
-        // });
+        axios
+            .get('/comments/' + self.imageId)
+            .then((response) => {
+                console.log('response.data', response.data);
+                // console.log('response', response.data);
+                self.comments.push(response.data);
+                console.log('comments', self.comments);
+            })
+            .catch((err) => console.log('err in mounted get comments ', err));
     },
     methods: {
         postComment: function (e) {
             var self = this;
             console.log('comment', self.comment);
             console.log('self.isername', self.username);
-            self.imageId = e.target.id;
-
+            console.log('self.imageid', self.imageId);
             var commentInfos = {
                 comment: self.comment,
                 username: self.username,
                 image_id: self.imageId,
             };
             console.log('commentInfos', 'ameer');
-            axios.post('/comment', commentInfos);
+            axios.post('/comment', commentInfos).then((response) => {
+                console.log('response', response.data.comment);
+                self.comments.unshift(response.data.comment);
+                console.log('self.comments', self.comments);
+            });
         },
     },
 });
