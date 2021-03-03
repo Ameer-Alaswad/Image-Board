@@ -44,15 +44,15 @@ app.post('/upload', uploader.single('file'), s3.upload, function (req, res) {
     const { filename } = req.file;
     // If nothing went wrong the file is already in the uploads directory
     if (req.file) {
-        db.addImage(title, username, description, s3Url + filename).then(
-            ({ rows }) => {
+        db.addImage(title, username, description, s3Url + filename)
+            .then(({ rows }) => {
                 console.log('rows', rows[0]);
                 res.json({
                     success: true,
                     image: rows[0],
                 });
-            }
-        );
+            })
+            .catch((err) => console.log('err upload', err));
     } else {
         res.json({
             success: false,
@@ -64,9 +64,22 @@ app.post('/upload', uploader.single('file'), s3.upload, function (req, res) {
 app.get('/image/:id', (req, res) => {
     console.log('req.params', req.params);
     let { id } = req.params;
-    db.getImage(id).then(({ rows }) => {
-        res.json(rows);
-    });
+    db.getImage(id)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((err) => console.log('err in image id', err));
 });
-
+/////////////////////////////////////
+///render lowest id
+app.get('/more/:lowestId', (req, res) => {
+    const { lowestId } = req.params;
+    console.log('loestId', lowestId);
+    db.getMoreImages(lowestId)
+        .then(({ rows }) => {
+            console.log('rows', rows);
+            res.json(rows);
+        })
+        .catch((err) => console.log('err in more lowestID', err));
+});
 app.listen(8080, () => console.log('image board running'));

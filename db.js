@@ -29,3 +29,46 @@ module.exports.getImage = (imageId) => {
     const params = [imageId];
     return db.query(q, params);
 };
+
+module.exports.getMoreImages = (id) => {
+    const q = `
+    SELECT id, url, title, (
+        SELECT id FROM images
+        ORDER BY id ASC
+        LIMIT 1
+    ) AS "lowestId" FROM images
+    WHERE id <$1
+    ORDER BY id DESC
+    LIMIT 4
+    `;
+    const params = [id];
+    return db.query(q, params);
+};
+module.exports.getMoreImages = (id) => {
+    const q = `
+    SELECT id, url, title, (
+        SELECT id FROM images
+        ORDER BY id ASC
+        LIMIT 1
+    ) AS "lowestId" FROM images
+    WHERE id <$1
+    ORDER BY id DESC
+    LIMIT 4
+    `;
+    const params = [id];
+    return db.query(q, params);
+};
+module.exports.getMoreImages = (id) => {
+    const q = `
+    SELECT *, (
+        SELECT id FROM images
+        ORDER BY id ASC
+        LIMIT 1
+    ) AS "lowestId" FROM images
+    WHERE id <$1
+    ORDER BY id DESC
+    LIMIT 6
+    `;
+    const params = [id];
+    return db.query(q, params);
+};

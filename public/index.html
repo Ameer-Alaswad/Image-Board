@@ -19,9 +19,10 @@
                     <div id="card-text-container">
                         <p>{{title}}</p>
                     </div>
-                   </div>
-        </div>
-        <first-component @close="closeComponent" v-if="imageId" :image-id="imageId"></first-component>
+                </div>
+            </div>
+            <first-component @close="closeComponent" v-if="imageId" :image-id="imageId"></first-component>
+           <div v-if="thereAreImages" id="more-image-button-div"><button @click="getMoreImages" id="more-images">more</button></div>   
     </div>
     <script id ="first-component" type="text/x-template">
         <div class="overlay">

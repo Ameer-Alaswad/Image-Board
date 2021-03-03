@@ -90,3 +90,17 @@ p {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.596);
 }
+
+#more-images {
+    color: aliceblue;
+    width: 120px;
+    height: 50px;
+    font-size: 20px;
+    background-color: black;
+}
+#more-image-button-div {
+    margin-top: 33px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

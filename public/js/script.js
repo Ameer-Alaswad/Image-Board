@@ -32,6 +32,7 @@ new Vue({
         description: '',
         file: null,
         imageId: null,
+        thereAreImages: true,
     },
     mounted: function () {
         var self = this;
@@ -40,13 +41,13 @@ new Vue({
             .get('/images')
             .then(function (response) {
                 self.images = response.data;
-                let map = response.data.map((id) => {
-                    return id.id;
-                });
-                console.log('map', map);
-                let lowestId = Math.min.apply(null, map);
-                console.log('lowestId', lowestId);
-                axios.get('/render', lowestId);
+                // let map = response.data.map((id) => {
+                //     return id.id;
+                // });
+                // console.log('map', map);
+                // let lowestId = Math.min.apply(null, map);
+                // console.log('lowestId', lowestId);
+                // axios.get('/render', lowestId)
             })
             .catch(function (err) {
                 console.log('error in axios', err);
@@ -91,6 +92,25 @@ new Vue({
         closeComponent: function () {
             var self = this;
             self.imageId = null;
+        },
+        getMoreImages: function (e) {
+            var self = this;
+            console.log('images', self.images);
+            // let map = self.images.map((id) => {
+            //     return id.id;
+            // });
+            // console.log('map', map);
+            // let lowestId = Math.min.apply(null, map);
+            // console.log('lowestId', lowestId);
+            const lowestId = this.images[this.images.length - 1].id;
+            console.log('lowestIdd', lowestId);
+            axios.get('/more/' + lowestId).then((response) => {
+                console.log('response', response.data[0]);
+                self.images.push(...response.data);
+                if (this.images[this.images.length - 1].id == lowestId) {
+                    return (self.thereAreImages = false);
+                }
+            });
         },
     },
 });
