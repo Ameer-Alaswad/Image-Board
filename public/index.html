@@ -47,7 +47,7 @@
 </script>
 <script id ="comments-component" type="text/x-template">
  <div class="comments-container">
-<form>
+<form action="POST">
     <input v-model="username" type="text" name="username" placeholder="username">
     <input v-model="comment" type="text" name="comment" placeholder="comment">
     <button @click.prevent="postComment">submit</button>

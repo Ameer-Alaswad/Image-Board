@@ -89,18 +89,20 @@ app.get('/comments/:imageId', (req, res) => {
     let { imageId } = req.params;
     console.log('id', imageId);
     db.getComments(imageId).then(({ rows }) => {
-        res.json(rows[0]);
+        res.json(rows);
     });
 });
 //////////////////////////////////
 /// add coment post
 app.post('/comment', (req, res) => {
     var { comment, username, image_id } = req.body;
-    db.addComment(username, comment, image_id).then(({ rows }) => {
-        res.json({
-            success: true,
-            comment: rows[0],
-        }).catch((err) => console.log('err in comment post', err));
-    });
+    db.addComment(username, comment, image_id)
+        .then(({ rows }) => {
+            res.json({
+                success: true,
+                comment: rows[0],
+            });
+        })
+        .catch((err) => console.log('err in comment post', err));
 });
 app.listen(8080, () => console.log('image board running'));

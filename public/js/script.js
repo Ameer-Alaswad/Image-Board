@@ -17,8 +17,8 @@ Vue.component('comments-component', {
             .get('/comments/' + self.imageId)
             .then((response) => {
                 console.log('response.data', response.data);
-                // console.log('response', response.data);
-                self.comments.push(response.data);
+                console.log('response', response.data);
+                self.comments = response.data;
                 console.log('comments', self.comments);
             })
             .catch((err) => console.log('err in mounted get comments ', err));
@@ -38,6 +38,8 @@ Vue.component('comments-component', {
             axios.post('/comment', commentInfos).then((response) => {
                 console.log('response', response.data.comment);
                 self.comments.unshift(response.data.comment);
+                self.comment = '';
+                self.username = '';
                 console.log('self.comments', self.comments);
             });
         },
