@@ -30,7 +30,7 @@ Vue.component('comments-component', {
                 image_id: self.imageId,
             };
             console.log('commentInfos', 'ameer');
-            axios.post('/comment', {});
+            axios.post('/comment', commentInfos);
         },
     },
 });
