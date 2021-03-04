@@ -78,7 +78,8 @@ Vue.component('first-component', {
     methods: {
         closeImage: function () {
             this.$emit('close');
-            location.hash = '';
+            // location.hash = '';
+            location.href = location.origin;
             self.imageId = null;
             // gives an error  Avoid mutating a prop directly!
         },
@@ -93,7 +94,7 @@ Vue.component('first-component', {
 
                     if (response.data.length == 0) {
                         self.$emit('close');
-                        location.hash = '';
+                        location.href = location.origin;
                         self.imageId = null;
                         // closeImage();
                     }

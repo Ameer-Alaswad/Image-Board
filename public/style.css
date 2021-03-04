@@ -218,14 +218,22 @@ input:focus {
     width: 80%;
 }
 .img-content {
-    margin-top: -150px;
+    /* margin-top: -150px; */
 }
 
-.flex {
+.flex1,
+.flex2 {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: -50px;
+    /* height: 100%; */
+    margin-bottom: 50px;
+}
+
+flex2 {
+    height: 400px;
 }
 
 .comments-card-image {
@@ -235,7 +243,8 @@ input:focus {
 
 .x-btn {
     margin-left: 78%;
-    margin-bottom: 100px;
+    margin-bottom: 150px;
+    /* margin-top: 80px; */
 }
 
 .comments-container {
@@ -243,4 +252,8 @@ input:focus {
     max-height: 250px;
     width: 90%;
     overflow: scroll;
+}
+
+#klklk {
+    width: 400px;
 }
